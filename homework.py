@@ -1,6 +1,6 @@
-from dataclasses import dataclass, asdict
 from typing import List
 from typing import Dict
+from dataclasses import dataclass, asdict
 
 
 @dataclass
@@ -151,7 +151,7 @@ class Swimming(Training):
         )
 
 
-def read_package(workout_type: str, data: list[int]) -> Training:
+def read_package(workout_type: str, data: List[int]) -> Training:
     """Прочитать данные полученные от датчиков."""
     type_of_training: Dict[str, type[Training]] = {
         "SWM": Swimming,
@@ -171,12 +171,12 @@ def main(training: Training) -> None:
 
 
 if __name__ == "__main__":
-    packages: list[tuple[str, List[int]]] = [
+    packages: list[tuple[str, list[int]]] = [
         ("SWM", [720, 1, 80, 25, 40]),
         ("RUN", [15000, 1, 75]),
         ("WLK", [9000, 1, 75, 180]),
     ]
 
     for workout_type, data in packages:
-        training: list[str, list[int]] = read_package(workout_type, data)
+        training: list[str, List[int]] = read_package(workout_type, data)
         main(training)
