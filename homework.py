@@ -1,9 +1,8 @@
-from typing import List
 from typing import Dict
 from dataclasses import dataclass, asdict
 
 
-@dataclass
+@dataclass(repr=False, eq=False)
 class InfoMessage:
     training_type: str
     duration: float
@@ -151,7 +150,7 @@ class Swimming(Training):
         )
 
 
-def read_package(workout_type: str, data: List[int]) -> Training:
+def read_package(workout_type: str, data: list[int]) -> Training:
     """Прочитать данные полученные от датчиков."""
     type_of_training: Dict[str, type[Training]] = {
         "SWM": Swimming,
@@ -166,7 +165,7 @@ def read_package(workout_type: str, data: List[int]) -> Training:
 
 def main(training: Training) -> None:
     """Главная функция."""
-    info: str = training.show_training_info()
+    info: InfoMessage = training.show_training_info()
     print(info.get_message())
 
 
@@ -178,5 +177,5 @@ if __name__ == "__main__":
     ]
 
     for workout_type, data in packages:
-        training: list[str, list[int]] = read_package(workout_type, data)
+        training: Training = read_package(workout_type, data)
         main(training)
