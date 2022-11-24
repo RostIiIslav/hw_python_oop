@@ -178,5 +178,5 @@ if __name__ == "__main__":
     ]
 
     for workout_type, data in packages:
-        training: Training = read_package(workout_type, data)
+        training: dict[str, type[Training]] = read_package(workout_type, data)
         main(training)
