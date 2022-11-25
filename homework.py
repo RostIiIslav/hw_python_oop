@@ -1,5 +1,4 @@
-from typing import Type
-from typing import Dict
+from typing import List, Dict, Tuple, ClassVar
 from dataclasses import dataclass, asdict
 
 
@@ -10,7 +9,7 @@ class InfoMessage:
     distance: float
     speed: float
     calories: float
-    info_pattern: str = (
+    INFO_PATTERN: ClassVar[str] = (
         'Тип тренировки: {training_type}; '
         'Длительность: {duration:.3f} ч.; '
         'Дистанция: {distance:.3f} км; '
@@ -20,7 +19,7 @@ class InfoMessage:
 
     def get_message(self) -> str:
         """Информационное сообщение о тренировке."""
-        return self.info_pattern.format(**asdict(self))
+        return self.INFO_PATTERN.format(**asdict(self))
 
 
 class Training:
@@ -55,7 +54,7 @@ class Training:
     def show_training_info(self) -> InfoMessage:
         """Вернуть информационное сообщение о выполненной тренировке."""
         return InfoMessage(
-            Type(self).__name__,
+            type(self).__name__,
             self.duration,
             self.get_distance(),
             self.get_mean_speed(),
@@ -151,9 +150,9 @@ class Swimming(Training):
         )
 
 
-def read_package(workout_type: str, data: list[int]) -> Training:
+def read_package(workout_type: str, data: list) -> Training:
     """Прочитать данные полученные от датчиков."""
-    type_of_training: Dict[str, Type[Training]] = {
+    type_of_training: Dict[str, type[Training]] = {
         "SWM": Swimming,
         "RUN": Running,
         "WLK": SportsWalking,
@@ -171,7 +170,7 @@ def main(training: Training) -> None:
 
 
 if __name__ == "__main__":
-    packages: list[tuple[str, list[int]]] = [
+    packages: List[Tuple[str, List[int]]] = [
         ("SWM", [720, 1, 80, 25, 40]),
         ("RUN", [15000, 1, 75]),
         ("WLK", [9000, 1, 75, 180]),
