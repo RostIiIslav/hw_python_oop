@@ -1,4 +1,4 @@
-from typing import List, Dict, Tuple, ClassVar
+from typing import List, Type, Dict, ClassVar, Tuple
 from dataclasses import dataclass, asdict
 
 
